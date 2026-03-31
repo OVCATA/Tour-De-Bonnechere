@@ -94,10 +94,10 @@
 
   /* ─── HERO ────────────────────────────── */
   #hero {
-    min-height: 100vh;
+    min-height: 92vh;
     position: relative;
     display: flex; align-items: center; justify-content: flex-start;
-    padding: 8rem 3rem 4rem;
+    padding: 6rem 3rem 3rem;
     overflow: hidden;
     background: var(--dark);
   }
@@ -215,7 +215,7 @@
     font-family: 'Labrada', serif;
     font-weight: 700;
     font-style: italic;
-    font-size: clamp(3.2rem, 7.5vw, 7rem);
+    font-size: clamp(2.6rem, 6vw, 5.5rem);
     line-height: 1.0;
     text-transform: none;
     color: var(--white);
@@ -320,7 +320,7 @@
 
   /* ─── SECTION BASE ────────────────────── */
   section {
-    padding: 6rem 3rem;
+    padding: 4rem 2.5rem;
   }
 
   .section-label {
@@ -676,7 +676,7 @@
   .volunteer-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2.5rem;
     align-items: start;
   }
 
@@ -788,7 +788,7 @@
   /* ─── SPONSORS ────────────────────────── */
   #sponsors { background: var(--charcoal); }
 
-  .sponsor-tiers { display: flex; flex-direction: column; gap: 3rem; }
+  .sponsor-tiers { display: flex; flex-direction: column; gap: 2rem; }
 
   .sponsor-tier-label {
     font-family: 'Labrada', serif;
@@ -904,14 +904,80 @@
 
   /* ─── RESPONSIVE ──────────────────────── */
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
+    /* NAV */
+    nav { padding: 0.8rem 1.2rem; }
     nav ul { display: none; }
-    section { padding: 4rem 1.5rem; }
-    #hero { padding: 7rem 1.5rem 3rem; }
-    .hero-wheel { width: 90vw; right: -20vw; opacity: 0.4; }
-    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-    footer { padding: 2rem 1.5rem; }
-    .sponsor-slot.gold { width: 100%; }
+    .nav-logos { gap: 0.6rem; }
+    .nav-logo-img { height: 28px; }
+    .nav-logo-ovcata { height: 24px; }
+
+    /* HERO */
+    section { padding: 2.5rem 1.2rem; }
+    #hero { padding: 5rem 1.2rem 2.5rem; min-height: 100svh; }
+    .hero-wheel { display: none; }
+    .hero-stats { gap: 1rem; flex-wrap: wrap; }
+    .hero-stats .stat-item { flex: 1; min-width: 80px; }
+    .hero-buttons { flex-direction: column; }
+    .hero-buttons a { text-align: center; }
+    .hero-date-badge { font-size: 0.8rem; }
+
+    /* EVENT SCHEDULE */
+    .event-schedule { grid-template-columns: 1fr; gap: 1rem; }
+    .event-location-banner { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .event-map-embed iframe { height: 180px; }
+
+    /* ROUTES */
+    .route-card-inner { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .route-rwgps-btn { align-self: flex-start; }
+    .routes-full { gap: 1px; }
+
+    /* VOLUNTEER */
+    .volunteer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .volunteer-form-box { padding: 1.5rem; }
+
+    /* SPONSORS */
+    .sponsor-grid { gap: 0.8rem; }
+    .sponsor-slot.gold { width: 100%; height: 80px; }
+    .sponsor-slot.silver { width: calc(50% - 0.4rem); height: 70px; }
+    .sponsor-slot.bronze { width: calc(50% - 0.4rem); height: 60px; }
+    .sponsor-cta { flex-direction: column; }
+
+    /* SCHEDULE */
+    .schedule-col { padding: 1.2rem; }
+    .festivity-item { flex-direction: column; gap: 0.2rem; }
+    .festivity-time { min-width: auto; }
+
+    /* FOOTER */
+    footer { padding: 1.5rem 1.2rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .footer-links { flex-wrap: wrap; gap: 1rem; }
+
+    /* REG GRID */
+    .reg-grid { grid-template-columns: 1fr; }
+    .reg-tier.featured { transform: none; }
+  }
+
+  /* Hamburger menu button */
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #AEDFC0;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  @media (max-width: 768px) {
+    .nav-hamburger { display: flex; }
+    .nav-mobile-open { display: flex !important; flex-direction: column; position: fixed; top: 56px; left: 0; right: 0; background: rgba(18,43,63,0.98); padding: 1.5rem; gap: 1.2rem; z-index: 99; border-bottom: 2px solid var(--accent); }
+    .nav-mobile-open a { font-size: 1.1rem; padding: 0.3rem 0; }
   }
 
   /* ─── GALLERY ─────────────────────────── */
@@ -1130,8 +1196,8 @@
   .event-schedule {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
   }
 
   @media (max-width: 860px) {
@@ -1263,8 +1329,8 @@
     gap: 1rem;
     background: var(--primary);
     border-radius: 16px;
-    padding: 1.2rem 1.8rem;
-    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.8rem;
     margin-top: 0.5rem;
   }
 
@@ -1338,7 +1404,21 @@
 
 </style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E8BYCNKNVV"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E8BYCNKNVV">
+  // Mobile nav hamburger
+  const hamburger = document.getElementById('nav-hamburger');
+  const navUl = document.querySelector('nav ul');
+  if (hamburger && navUl) {
+    hamburger.addEventListener('click', () => {
+      navUl.classList.toggle('nav-mobile-open');
+    });
+    // Close on link click
+    navUl.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navUl.classList.remove('nav-mobile-open'));
+    });
+  }
+
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -1361,6 +1441,9 @@
     <li><a href="#sponsors">Sponsors</a></li>
     <li><a href="https://zone4.ca/register.asp?id=41574" target="_blank" class="nav-cta">Register</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
