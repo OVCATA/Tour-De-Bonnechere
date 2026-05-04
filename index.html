@@ -765,7 +765,8 @@
   .form-row select:focus,
   .form-row textarea:focus { border-color: #AEDFC0; }
 
-  .form-row select { cursor: pointer; color: var(--white); }
+  .form-row select { cursor: pointer; color: var(--white); background: var(--primary); }
+  .form-row select option { background: var(--primary); color: var(--white); }
   .form-row textarea { resize: vertical; min-height: 80px; }
 
   .form-submit {
@@ -1411,47 +1412,55 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8BYCNKNVV">
   // Mobile nav hamburger
-  document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.getElementById('nav-hamburger');
-    const navUl = document.querySelector('nav ul');
-    if (hamburger && navUl) {
-      hamburger.addEventListener('click', function() {
-        const isOpen = navUl.classList.toggle('nav-mobile-open');
-        hamburger.setAttribute('aria-expanded', isOpen);
-        // Animate hamburger to X
-        const spans = hamburger.querySelectorAll('span');
-        if (isOpen) {
-          spans[0].style.transform = 'translateY(7px) rotate(45deg)';
-          spans[1].style.opacity = '0';
-          spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  (function() {
+    function initNav() {
+      var hamburger = document.getElementById('nav-hamburger');
+      var navUl = document.querySelector('nav ul');
+      var overlay = document.getElementById('nav-overlay');
+      if (!hamburger || !navUl) return;
+
+      function openMenu() {
+        navUl.classList.add('nav-mobile-open');
+        if (overlay) overlay.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.querySelectorAll('span')[0].style.transform = 'translateY(8px) rotate(45deg)';
+        hamburger.querySelectorAll('span')[1].style.opacity = '0';
+        hamburger.querySelectorAll('span')[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        navUl.classList.remove('nav-mobile-open');
+        if (overlay) overlay.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.querySelectorAll('span')[0].style.transform = '';
+        hamburger.querySelectorAll('span')[1].style.opacity = '';
+        hamburger.querySelectorAll('span')[2].style.transform = '';
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (navUl.classList.contains('nav-mobile-open')) {
+          closeMenu();
         } else {
-          spans[0].style.transform = '';
-          spans[1].style.opacity = '';
-          spans[2].style.transform = '';
+          openMenu();
         }
       });
-      // Close on link click
+
       navUl.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() {
-          navUl.classList.remove('nav-mobile-open');
-          const spans = hamburger.querySelectorAll('span');
-          spans[0].style.transform = '';
-          spans[1].style.opacity = '';
-          spans[2].style.transform = '';
-        });
+        a.addEventListener('click', closeMenu);
       });
-      // Close on outside click
-      document.addEventListener('click', function(e) {
-        if (!hamburger.contains(e.target) && !navUl.contains(e.target)) {
-          navUl.classList.remove('nav-mobile-open');
-          const spans = hamburger.querySelectorAll('span');
-          spans[0].style.transform = '';
-          spans[1].style.opacity = '';
-          spans[2].style.transform = '';
-        }
-      });
+
+      if (overlay) overlay.addEventListener('click', closeMenu);
     }
-  });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNav);
+    } else {
+      initNav();
+    }
+  })();
 
 </script>
 <script>
@@ -1476,10 +1485,11 @@
     <li><a href="#sponsors">Sponsors</a></li>
     <li><a href="https://zone4.ca/register.asp?id=41574" target="_blank" class="nav-cta">Register</a></li>
   </ul>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div class="nav-overlay" id="nav-overlay"></div>
 
 <!-- HERO -->
 <section id="hero">
